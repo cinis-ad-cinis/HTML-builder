@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
-const { exit } = require('process');
-const { stdout } = require('process');
+const { exit, stdout } = require('process');
+const { EOL } = require('os');
 
 const srcDir = path.join(__dirname, 'files');
 const destDir = path.join(__dirname, 'files-copy');
@@ -28,5 +28,5 @@ fs.readdir(srcDir, (err, files) => {
       }
     });
   });
-  stdout.write('Copied!');
+  stdout.write(`Copied!${EOL}`);
 });
