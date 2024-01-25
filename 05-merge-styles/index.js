@@ -25,7 +25,7 @@ const createBundle = async () => {
       const output = fs.createWriteStream(filePath, { flags: 'a' });
       pipeline(input, output, (err) => {
         if (err) {
-          console.log(err);
+          console.log(err.message);
         }
       });
     });
