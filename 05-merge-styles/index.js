@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { readdir } = require('fs/promises');
+const { readdir, rm } = require('fs/promises');
 const { join, extname } = require('path');
 const { stdout } = require('process');
 const { EOL } = require('os');
@@ -17,11 +17,12 @@ const createBundle = async () => {
         file.isFile() &&
         extname(join(__dirname, 'styles', file.name)) === '.css',
     )
-    .forEach((file) => {
+    .forEach(async (file) => {
       const input = fs.createReadStream(
         join(__dirname, 'styles', file.name),
         'utf-8',
       );
+      await rm(filePath, { recursive: true, force: true });
       const output = fs.createWriteStream(filePath, { flags: 'a' });
       pipeline(input, output, (err) => {
         if (err) {
